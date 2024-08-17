@@ -10,11 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_16_155401) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_16_161646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "shortened_urls", force: :cascade do |t|
+    t.text "target_url"
+    t.string "short_url"
+    t.string "sanitize_url"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
