@@ -1,6 +1,5 @@
 class ShortenedUrlsController < ApplicationController
   before_action :find_url, only: [ :show, :shortened ]
-  # skip_before_filter :verify_authenticity_token
 
   def index
     @url = ShortenedUrl.new
