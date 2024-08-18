@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_08_16_161646) do
+ActiveRecord::Schema[7.2].define(version: 2024_08_18_134916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,4 +22,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_08_16_161646) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "user_stats", force: :cascade do |t|
+    t.string "origin_city"
+    t.string "origin_country"
+    t.integer "clicks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "shortened_url_id", null: false
+    t.index ["shortened_url_id"], name: "index_user_stats_on_shortened_url_id"
+  end
+
+  add_foreign_key "user_stats", "shortened_urls"
 end
