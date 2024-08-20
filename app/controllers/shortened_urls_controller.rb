@@ -10,14 +10,16 @@ class ShortenedUrlsController < ApplicationController
     if Rails.env.development? || Rails.env.test?
       city_data = "Kuala Lumpur"
       country_data = "Malaysia"
+      timezone = "Malaysia/Kuala_Lumpur"
     else
       city_data = request.location.city
       country_data = request.location.country
+      user_ip = request.location.ip
     end
     @user_data = UserStat.new
     @user_data.origin_city = city_data
     @user_data.origin_country = country_data
-    
+    @user_data.timezone = Geocoder.search(user_ip).first.data["timezone"]
     if @url
       @user_data.shortened_url_id = @url.id
       @user_data.save
