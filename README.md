@@ -12,13 +12,13 @@ To run the full stack including the PostgreSQL database:
 2. Clone this repository.
 3. Navigate to the project directory.
 4. Run:
-   ```
+   ```bash
    docker-compose up
    ```
 5. The application will be available at `http://localhost:3000`.
 
 To stop the containers:
-```
+```bash
 docker-compose down
 ```
 
@@ -28,7 +28,7 @@ docker-compose down
 2. Clone this repository.
 3. Navigate to the project directory.
 4. Run:
-   ```
+   ```bash
    bin/setup
    ```
    This will set up the database, install all gem dependencies, and Yarn packages.
@@ -74,3 +74,30 @@ If you want to launch the app for the first time
 
 
 For more details on Fly.io deployment, refer to their [documentation](https://fly.io/docs/rails/).
+
+## Notable Dependencies
+
+This application uses several key dependencies, including:
+
+- **Rails**: The web application framework used for building the application.
+- **PostgreSQL**: The database used for Active Record.
+- **Puma**: The web server for serving the application.
+- **Hotwire**: For SPA-like page acceleration with Turbo and Stimulus.
+- **Geocoder**: For finding users' geolocation.
+- **Devise**: For user authentication.
+- **RSpec**: For testing the application.
+- **Brakeman**: For static analysis of security vulnerabilities.
+
+## Features
+
+- URL shortening
+- Geolocation tracking of URL accesses
+- ...
+
+## Contributing
+
+[Include contribution guidelines here]
+
+## License
+
+[Include license information here]
