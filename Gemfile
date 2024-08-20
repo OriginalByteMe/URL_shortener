@@ -36,6 +36,9 @@ gem "bootsnap", require: false
 # For finding the users geolocation
 gem "geocoder", "~> 1.3", ">= 1.3.7"
 
+# Finding timezone from latlang
+gem "timezone", "~> 1.0"
+
 # For accessing the usage stats
 gem "rails_admin", "~> 3.0"
 
@@ -66,3 +69,5 @@ end
 
 gem "devise", "~> 4.9"
 gem "sassc-rails"
+
+gem "dockerfile-rails", ">= 1.6", group: :development

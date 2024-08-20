@@ -25,8 +25,6 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   config.actions do
-    # all
-    charts
     dashboard                     # mandatory
     index                         # mandatory
     new
