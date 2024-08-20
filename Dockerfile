@@ -32,11 +32,16 @@ RUN apt-get update -qq && \
 
 # Install JavaScript dependencies
 ARG NODE_VERSION=18.17.0
-ARG YARN_VERSION=3.4.1
+ARG YARN_VERSION=1.22.19
 ENV PATH=/usr/local/node/bin:$PATH
-RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+RUN apt-get update && \
+    apt-get install -y gnupg && \
+    curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
     /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
-    npm install -g yarn@$YARN_VERSION && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && \
+    apt-get install -y yarn && \
     rm -rf /tmp/node-build-master
 
 # Install application gems
@@ -47,7 +52,7 @@ RUN bundle install && \
 
 # Install node modules
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn cache clean && yarn install --pure-lockfile
 
 # Copy application code
 COPY . .
@@ -56,7 +61,7 @@ COPY . .
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN RAILS_ENV=development SECRET_KEY_BASE=1 ./bin/rails assets:precompile
 
 
 RUN rm -rf node_modules

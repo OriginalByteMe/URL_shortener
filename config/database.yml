@@ -18,11 +18,13 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: <%= ENV.fetch("POSTGRES_HOST") { "localhost" } %>
-  port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
-  username: <%= ENV.fetch("POSTGRES_USER") { "user" } %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "ewwchangethis" } %>
-  database: <%= ENV.fetch("POSTGRES_DB") { "url_shortner" } %>
+  url: <%= ENV['DATABASE_URL'] %>
+  # Fall back to individual components if DATABASE_URL is not set
+  host: <%= ENV['DATABASE_URL'] ? nil : (ENV.fetch("POSTGRES_HOST") { "localhost" }) %>
+  port: <%= ENV['DATABASE_URL'] ? nil : (ENV.fetch("POSTGRES_PORT") { 5432 }) %>
+  username: <%= ENV['DATABASE_URL'] ? nil : (ENV.fetch("POSTGRES_USER") { "user" }) %>
+  password: <%= ENV['DATABASE_URL'] ? nil : (ENV.fetch("POSTGRES_PASSWORD") { "ewwchangethis" }) %>
+  database: <%= ENV['DATABASE_URL'] ? nil : (ENV.fetch("POSTGRES_DB") { "url_shortner" }) %>
   min_messages: warning
 
 
@@ -87,5 +89,3 @@ test:
 production:
   <<: *default
   database: url_shortner_production
-  username: url_shortner
-  password: <%= ENV["url_shortner_DATABASE_PASSWORD"] %>

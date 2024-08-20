@@ -71,3 +71,5 @@ gem "devise", "~> 4.9"
 gem "sassc-rails"
 
 gem "dockerfile-rails", ">= 1.6", group: :development
+
+gem "dockerfile-rails", ">= 1.6", :group => :development

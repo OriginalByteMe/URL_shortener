@@ -11,16 +11,21 @@ class ShortenedUrlsController < ApplicationController
       city_data = "Kuala Lumpur"
       country_data = "Malaysia"
     else
-      city_data = request.location.origin_city
-      country_data = request.location.origin_country
+      city_data = request.location.city
+      country_data = request.location.country
     end
     @user_data = UserStat.new
     @user_data.origin_city = city_data
     @user_data.origin_country = country_data
-    @user_data.shortened_url_id = @url.id
-    @user_data.save
-
-    redirect_to @url.sanitize_url, allow_other_host: true
+    
+    if @url
+      @user_data.shortened_url_id = @url.id
+      @user_data.save
+      redirect_to @url.sanitize_url, allow_other_host: true
+    else
+      flash[:error] = "URL not found"
+      redirect_to root_path
+    end
   end
 
   def create

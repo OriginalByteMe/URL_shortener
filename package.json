@@ -14,5 +14,6 @@
     "autoprefixer": "latest",
     "postcss": "latest",
     "tailwindcss": "latest"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

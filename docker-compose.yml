@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: dev.Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://user:ewwchangethis@db/url_shortner
+      - RAILS_ENV=development
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    # command: ["./bin/dev"]
+
+  db:
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=ewwchangethis
+      - POSTGRES_USER=user
+      - POSTGRES_DB=url_shortner
+
+volumes:
+  postgres_data:
