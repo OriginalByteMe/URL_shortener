@@ -5,4 +5,9 @@ FactoryBot.define do
     short_url { "abc12345" }
     sanitize_url { "http://google.com" }
   end
+
+  factory :user_stat do
+    origin_city { 'New York' }
+    origin_country { 'USA' }
+  end
 end

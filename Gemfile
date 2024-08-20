@@ -33,6 +33,15 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
+# For finding the users geolocation
+gem "geocoder", "~> 1.3", ">= 1.3.7"
+
+# Finding timezone from latlang
+gem "timezone", "~> 1.0"
+
+# For accessing the usage stats
+gem "rails_admin", "~> 3.0"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -57,3 +66,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+
+gem "devise", "~> 4.9"
+gem "sassc-rails"
+
+gem "dockerfile-rails", ">= 1.6", group: :development
