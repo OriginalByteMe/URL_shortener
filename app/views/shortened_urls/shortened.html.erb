@@ -1,25 +1,32 @@
-<div class="flex justify-center items-center h-screen">
-  <div class="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-    <div class="flex justify-between items-center mb-4">
-      <%= link_to shortened_urls_path, class: "text-gray-500 hover:text-gray-700 transition duration-300 ease-in-out" do %>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-      <% end %>
-      <h2 class="text-lg font-medium text-gray-600">Shortened URL</h2>
-    </div>
-    <div class="flex flex-col items-center mb-4">
-      <div class="bg-white rounded-full py-2 px-4 w-full mb-2">
-        <a href=<%= @target_url %> class="text-sm text-gray-500 hover:text-blue-600 transition duration-300 ease-in-out font-bold" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-          Original URL: <%= @target_url %>
-        </a>
-      </div>
-      <div class="bg-white rounded-full py-2 px-4 w-full">
-        <a href=<%= @short_url %> class="text-sm text-gray-500 hover:text-blue-600 transition duration-300 ease-in-out font-bold" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">
-          Shortened URL: <%= @short_url %>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="flex flex-col h-screen">
+  <header class="p-4 bg-gray-100">
+    <%= link_to shortened_urls_path, class: "text-gray-600 hover:text-gray-800 transition duration-300 ease-in-out" do %>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+    <% end %>
+  </header>
 
+  <main class="flex-grow flex flex-col justify-center items-center p-4">
+    <div class="max-w-2xl w-full space-y-8">
+      <div class="bg-gray-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold mb-2">Original URL</h2>
+        <a href="<%= @target_url %>" 
+           class="text-2xl text-blue-600 hover:text-blue-800 break-all" 
+           onclick="window.location.href='<%= @target_url %>';">
+          <%= @target_url %>
+        </a>
+      </div>
+
+      <div class="bg-blue-100 rounded-lg p-6 text-center">
+        <h2 class="text-xl font-semibold mb-2">Shortened URL</h2>
+        <% formatted_short_url = @short_url.start_with?('http://', 'https://') ? @short_url : "http://#{@short_url}" %>
+        <a href="<%= formatted_short_url %>" 
+           class="text-2xl text-blue-600 hover:text-blue-800 break-all" 
+           onclick="window.location.href='<%= formatted_short_url %>';">
+          <%= formatted_short_url %>
+        </a>
+      </div>
+    </div>
+  </main>
+</div>
