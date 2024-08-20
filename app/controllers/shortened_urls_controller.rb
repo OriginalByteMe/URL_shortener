@@ -1,11 +1,25 @@
 class ShortenedUrlsController < ApplicationController
   before_action :find_url, only: [ :show, :shortened ]
 
+
   def index
     @url = ShortenedUrl.new
   end
 
   def show
+    if Rails.env.development? || Rails.env.test?
+      city_data = "Kuala Lumpur"
+      country_data = "Malaysia"
+    else
+      city_data = request.location.origin_city
+      country_data = request.location.origin_country
+    end
+    @user_data = UserStat.new
+    @user_data.origin_city = city_data
+    @user_data.origin_country = country_data
+    @user_data.shortened_url_id = @url.id
+    @user_data.save
+
     redirect_to @url.sanitize_url, allow_other_host: true
   end
 
@@ -21,7 +35,6 @@ class ShortenedUrlsController < ApplicationController
         render "index"
       end
     else
-      # TODO: Change this to allow multiple short urls with the same target url
       flash[:notice] = "URL already shortened"
       redirect_to shortened_path(@url.find_duplicate.short_url)
     end

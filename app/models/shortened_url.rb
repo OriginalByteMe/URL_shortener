@@ -1,4 +1,5 @@
 class ShortenedUrl < ApplicationRecord
+  has_many :user_stats, dependent: :destroy
   UNIQUE_URI_LENGTH = 15
   validates :target_url, presence: true, on: :create
   validates_format_of :target_url, with: URI.regexp, on: :create
