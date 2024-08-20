@@ -60,8 +60,8 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN RAILS_ENV=development SECRET_KEY_BASE=1 ./bin/rails assets:precompile
+# Precompiling assets for production
+RUN RAILS_ENV=production SECRET_KEY_BASE=1 ./bin/rails assets:precompile
 
 
 RUN rm -rf node_modules
