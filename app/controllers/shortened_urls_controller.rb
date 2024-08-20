@@ -7,7 +7,7 @@ class ShortenedUrlsController < ApplicationController
   end
 
   def show
-    if Rails.env.development?
+    if Rails.env.development? || Rails.env.test?
       city_data = "Kuala Lumpur"
       country_data = "Malaysia"
     else

@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "ShortenedUrls", type: :request do
+  before(:suite) do
+    Rails.application.load_tasks
+    Rake::Task['tailwindcss:build'].invoke
+  end
   describe "GET /index" do
     it "assigns a new ShortenedUrl to @url" do
       get shortened_urls_path
