@@ -15,11 +15,12 @@ class ShortenedUrlsController < ApplicationController
       city_data = request.location.city
       country_data = request.location.country
       user_ip = request.location.ip
+      timezone = Geocoder.search(user_ip).first.data["timezone"]
     end
     @user_data = UserStat.new
     @user_data.origin_city = city_data
     @user_data.origin_country = country_data
-    @user_data.timezone = Geocoder.search(user_ip).first.data["timezone"]
+    @user_data.timezone = timezone
     if @url
       @user_data.shortened_url_id = @url.id
       @user_data.save
@@ -34,16 +35,11 @@ class ShortenedUrlsController < ApplicationController
     @url = ShortenedUrl.new
     @url.target_url = params[:target_url]
     @url.santize
-    if @url.new_url?
-      if @url.save
-        redirect_to shortened_path(@url.short_url)
-      else
-        flash[:error] = "Check errors below"
-        render "index"
-      end
+    if @url.save
+      redirect_to shortened_path(@url.short_url)
     else
-      flash[:notice] = "URL already shortened"
-      redirect_to shortened_path(@url.find_duplicate.short_url)
+      flash[:error] = "Something went wrong when shortening your URL! Please try again."
+      render "index"
     end
   end
 
