@@ -39,6 +39,10 @@ gem "geocoder", "~> 1.3", ">= 1.3.7"
 # For accessing the usage stats
 gem "rails_admin", "~> 3.0"
 
+# For parsing url and getting title
+gem 'open-uri'
+gem 'nokogiri'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -57,6 +61,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "rails-controller-testing"
+  gem "dockerfile-rails", ">= 1.6"
 end
 
 group :development do
@@ -67,6 +72,5 @@ end
 gem "devise", "~> 4.9"
 gem "sassc-rails"
 
-gem "dockerfile-rails", ">= 1.6", group: :development
 
-gem "dockerfile-rails", ">= 1.6", :group => :development
+
