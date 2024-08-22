@@ -1,6 +1,5 @@
 class ShortenedUrlsController < ApplicationController
-  before_action :find_url, only: [ :show, :shortened ]
-
+  before_action :find_url, only: [ :show, :shortened, :stats ]
 
   def index
     @url = ShortenedUrl.new
@@ -44,16 +43,31 @@ class ShortenedUrlsController < ApplicationController
   end
 
   def shortened
-    @url = ShortenedUrl.find_by_short_url(params[:short_url])
     host = request.host_with_port
     @target_url = @url.sanitize_url
     @short_url = host + "/" + @url.short_url
+    @short_code = @url.short_url
     @title = @url.title
   end
 
   def fetch_original_url
     fetch_url = ShortenedUrl.find_by_short_url(params[:short_url])
     redirect_to fetch_url.sanitize_url, allow_other_host: true
+  end
+
+  def overall_stats
+    @user_stats = ShortenedUrl.page(params[:page]).per(10)
+    @clicks_by_country = UserStat.group(:origin_country).count
+    @clicks_by_timezone = UserStat.group(:timezone).count
+    @clicks_over_time = UserStat.group_by_day(:created_at).count
+    render "all_stats"
+  end
+  def stats
+    @user_stats = UserStat.where(shortened_url_id: @url.id)
+    @url_title = @url.title
+    @clicks_by_country = @user_stats.group(:origin_country).count
+    @clicks_by_timezone = @user_stats.group(:timezone).count
+    @clicks_over_time = @user_stats.group_by_day(:created_at).count
   end
 
   private
