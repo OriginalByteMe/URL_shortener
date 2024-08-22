@@ -62,6 +62,7 @@ class ShortenedUrlsController < ApplicationController
     @clicks_over_time = UserStat.group_by_day(:created_at).count
     render "all_stats"
   end
+
   def stats
     @user_stats = UserStat.where(shortened_url_id: @url.id)
     @url_title = @url.title

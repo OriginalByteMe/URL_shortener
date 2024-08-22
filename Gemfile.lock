@@ -362,6 +362,7 @@ DEPENDENCIES
   groupdate
   jbuilder
   jsbundling-rails
+  kaminari
   nokogiri
   open-uri
   pg (~> 1.1)
