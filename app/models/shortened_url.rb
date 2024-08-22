@@ -1,5 +1,5 @@
-require 'open-uri'
-require 'nokogiri'
+require "open-uri"
+require "nokogiri"
 
 class ShortenedUrl < ApplicationRecord
   has_many :user_stats, dependent: :destroy
@@ -70,7 +70,7 @@ class ShortenedUrl < ApplicationRecord
       html = URI.open(self.sanitize_url)
       # Read the first 1024 bytes to find the title tag quickly
       fragment = Nokogiri::HTML::DocumentFragment.parse(html.read(1024))
-      self.title = fragment.at_css('title')&.text || "No title found"
+      self.title = fragment.at_css("title")&.text || "No title found"
     rescue => e
       Rails.logger.error "Failed to retrieve title for #{self.sanitize_url}: #{e.message}"
       self.title = nil
