@@ -1,30 +1,37 @@
-<div class="min-h-screen bg-gray-50 flex flex-col justify-center items-center px-4">
-  <h1 class="text-4xl font-bold text-gray-900 mb-8">URL Shortener</h1>
-  
-  <%= simple_form_for :shortened_url, url: shortened_urls_create_path, method: :post, html: { class: "w-full max-w-md" } do |f| %>
-    <div class="relative">
-      <%= f.input :target_url,
-          label: false,
-          placeholder: 'Place your URL here to be shortened!',
-          input_html: {
-            class: "w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
-            autocomplete: "off",
-            name: "target_url"  # This ensures the parameter name matches your controller expectations
-          } %>
-      
-      <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out active:scale-90">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-scissors" viewBox="0 0 16 16">
-          <path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.794.637L8 9.73l-1.572 2.177a2.5 2.5 0 1 1-.794-.637L7.19 8.61zm2.5 10a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0m7 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
-        </svg>
-      </button>
-    </div>
-  <% end %>
+<div class="flex flex-col h-screen">
+  <header class="p-4 bg-gray-100 flex justify-end">
+   <a href="/admin" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out">
+      Admin Page
+    </a>
+  </header>
+  <main class="flex-grow flex flex-col justify-center items-center p-4">
+    <h1 class="text-4xl font-bold text-gray-900 mb-8">URL Shortener</h1>
+    
+    <%= simple_form_for :shortened_url, url: shortened_urls_create_path, method: :post, html: { class: "w-full max-w-md" } do |f| %>
+      <div class="relative">
+        <%= f.input :target_url,
+            label: false,
+            placeholder: 'Place your URL here to be shortened!',
+            input_html: {
+              class: "w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+              autocomplete: "off",
+              name: "target_url"  # This ensures the parameter name matches your controller expectations
+            } %>
+        
+        <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-transform duration-200 ease-in-out active:scale-90">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-scissors" viewBox="0 0 16 16">
+            <path d="M3.5 3.5c-.614-.884-.074-1.962.858-2.5L8 7.226 11.642 1c.932.538 1.472 1.616.858 2.5L8.81 8.61l1.556 2.661a2.5 2.5 0 1 1-.794.637L8 9.73l-1.572 2.177a2.5 2.5 0 1 1-.794-.637L7.19 8.61zm2.5 10a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0m7 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"/>
+          </svg>
+        </button>
+      </div>
+    <% end %>
 
-  <% if flash[:error] %>
-    <div class="mt-4 text-red-500"><%= flash[:error] %></div>
-  <% end %>
+    <% if flash[:error] %>
+      <div class="mt-4 text-red-500"><%= flash[:error] %></div>
+    <% end %>
 
-  <% if flash[:notice] %>
-    <div class="mt-4 text-blue-500"><%= flash[:notice] %></div>
-  <% end %>
+    <% if flash[:notice] %>
+      <div class="mt-4 text-blue-500"><%= flash[:notice] %></div>
+    <% end %>
+  </main>
 </div>

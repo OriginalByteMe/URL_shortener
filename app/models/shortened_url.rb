@@ -1,3 +1,6 @@
+require "open-uri"
+require "nokogiri"
+
 class ShortenedUrl < ApplicationRecord
   has_many :user_stats, dependent: :destroy
   UNIQUE_URI_LENGTH = 15
@@ -63,9 +66,14 @@ class ShortenedUrl < ApplicationRecord
   end
 
   def retrieve_title
-    match = self.sanitize_url.match(/^https?:\/\/([^.]+)\./)
-    if match
-      self.title = match[1].capitalize
+    begin
+      html = URI.open(self.sanitize_url)
+      # Read the first 1024 bytes to find the title tag quickly
+      fragment = Nokogiri::HTML::DocumentFragment.parse(html.read(1024))
+      self.title = fragment.at_css("title")&.text || "No title found"
+    rescue => e
+      Rails.logger.error "Failed to retrieve title for #{self.sanitize_url}: #{e.message}"
+      self.title = nil
     end
   end
 end
