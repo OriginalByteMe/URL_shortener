@@ -52,6 +52,7 @@ class ShortenedUrlsController < ApplicationController
     host = request.host_with_port
     @target_url = @url.sanitize_url
     @short_url = host + "/" + @url.short_url
+    @title = @url.title
   end
 
   def fetch_original_url

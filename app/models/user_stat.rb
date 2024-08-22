@@ -1,4 +1,5 @@
 class UserStat < ApplicationRecord
+  belongs_to :shortened_url
   validates :origin_country, presence: true
   # Auto geocoding, getting lat lang coordinates for showcase on maps
   geocoded_by :address
