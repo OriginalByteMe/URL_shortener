@@ -77,7 +77,9 @@ For more details on Fly.io deployment, refer to their [documentation](https://fl
 
 
 # The usage statistics
-I have added the `Rails admin gem`, this will allow you to see all of the data from tables in a neatly organized UI, including the usage statistics table showcasing users geolocation data as well as the time accessed for each URL.
+For checking the `statistics`, please reffer to the statistics button found on the top left of any page in the application (besides the admin page), this will lead you to either an overall user stats page or a individual links one
+
+I also have added the `Rails admin gem`, this will allow you to see all of the data from tables in a neatly organized UI, including the usage statistics table showcasing users geolocation data as well as the time accessed for each URL.
 
 This page can be accessed via the `admin page` button in the header or going to the `/admin` page manually in the URL
 
