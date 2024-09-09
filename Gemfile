@@ -37,7 +37,7 @@ gem "bootsnap", require: false
 gem "geocoder", "~> 1.3", ">= 1.3.7"
 
 # For accessing the usage stats
-gem "rails_admin", "~> 3.0"
+gem "rails_admin", "~> 3.2"
 gem "kaminari"
 gem "chartkick"
 gem "groupdate"
